@@ -25,7 +25,7 @@ const Gallery = () => {
   const totalNumberOfCategories = 5;
   // Define the total number of images for the selected category
   // Set its value to the length of the array of images for the selected category or 0
-  const totalNumberOfImages = imagesByCategory[selectedCategory]?.length || 0;
+  const totalNumberOfImagesForTheSelectedCategory = imagesByCategory[selectedCategory]?.length || 0;
 
   // Define the selectPreviousCategory function
   // It should decrement the selectedCategory by 1
@@ -49,34 +49,29 @@ const Gallery = () => {
   // It should update the selectedCategory with the index of the clicked category
   // It should get the id of the clicked category from the event object
   // It should convert the id to a number before updating the selectedCategory
-  const selectCategory = (e) => {
-    const index = Number(e.target.id);
+  const selectCategory = useCallback((index) => {
     if (!isNaN(index)) {
       setSelectedCategory(index);
     }
-  };
+  }, []);
 
   // Define the selectPreviousImage function
   // It should decrement the selectedImage by 1
   const selectPreviousImage = useCallback(() => {
-    () => {
-      setSelectedImage((prevImage) =>
-        prevImage > 0 ? prevImage - 1 : prevImage
-      );
-    };
+    setSelectedImage((prevImage) =>
+      prevImage > 0 ? prevImage - 1 : prevImage
+    );
   }, []);
 
   // Define the selectNextImage function
   // It should increment the selectedImage by 1
   const selectNextImage = useCallback(() => {
-    () => {
-      setSelectedImage((prevSelectedImage) =>
-        prevSelectedImage < totalNumberOfImages - 1
-          ? prevSelectedImage + 1
-          : prevSelectedImage
-      );
-    };
-  }, [totalNumberOfImages]);
+    setSelectedImage((prevSelectedImage) =>
+      prevSelectedImage < totalNumberOfImagesForTheSelectedCategory - 1
+        ? prevSelectedImage + 1
+        : prevSelectedImage
+    );
+  }, [totalNumberOfImagesForTheSelectedCategory]);
 
   // Define the handleKeyPress function
   // It should be a callback function so that it persists between renders
@@ -136,7 +131,7 @@ const Gallery = () => {
           const imageSrc = imagesForCategory.map((img) => img.src);
           setImagesByCategory((prevImage) => ({
             ...prevImage,
-            [selectCategory]: imageSrc,
+            [selectedCategory]: imageSrc,
           }));
         }
       );
@@ -177,7 +172,7 @@ const Gallery = () => {
         selectedCategory={selectedCategory}
         selectPreviousCategory={selectPreviousCategory}
         selectNextCategory={selectNextCategory}
-        selectCategory={selectCategory()}
+        selectCategory={selectCategory}
       />
       <div className="gallery">
         {/* Include the ImagesList component */}
@@ -196,7 +191,7 @@ const Gallery = () => {
           selectedImage={selectedImage}
           selectPreviousImage={selectPreviousImage}
           selectNextImage={selectNextImage}
-          totalImages={totalNumberOfImages}
+          totalImages={totalNumberOfImagesForTheSelectedCategory}
         />
       </div>
     </div>
