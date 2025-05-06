@@ -31,9 +31,10 @@ const CategorySelector = ({
         {/* If the index is equal to the selectedCategory, add the class "selected" */}
         {/* The button should call the selectCategory function on click */}
         {/* The button should display the category name in uppercase */}
-        {Object.values(categories).map(([key, categoryName], index) => (
+        {Object.values(categories).map((categoryName, index) => (
           <button
-            key={key}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             id={index}
             className={`category ${
               index === selectedCategory ? "selected" : ""

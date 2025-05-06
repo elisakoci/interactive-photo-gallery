@@ -18,9 +18,9 @@ const ImagesList = ({ imagesForCategory, selectedImage }) => (
         <LoadingIndicator />
       </div>
     ) : (
-      // eslint-disable-next-line no-unused-vars
-      imagesForCategory.map((src, [index,_]) => (
+      imagesForCategory.map((src,index) => (
         <div
+          // eslint-disable-next-line react/no-array-index-key
           key={index}
           id={index}
           className={`image ${index === selectedImage ? "selected" : ""}`}

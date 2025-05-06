@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import categories from "../constants/categories";
-import {
-  getImagesForCategory,
-  scrollToSelectedImage,
-} from "../helpers/getImagesForCategory";
+import getImagesForCategory from "../helpers/getImagesForCategory";
+import scrollToSelectedImage from "../helpers/scrollToSelectedImage";
 import CategorySelector from "./CategorySelector";
 import ImageSelector from "./ImageSelector";
 import ImagesList from "./ImagesList";
@@ -25,7 +23,8 @@ const Gallery = () => {
   const totalNumberOfCategories = 5;
   // Define the total number of images for the selected category
   // Set its value to the length of the array of images for the selected category or 0
-  const totalNumberOfImagesForTheSelectedCategory = imagesByCategory[selectedCategory]?.length || 0;
+  const totalNumberOfImagesForTheSelectedCategory =
+    imagesByCategory[selectedCategory]?.length || 0;
 
   // Define the selectPreviousCategory function
   // It should decrement the selectedCategory by 1
@@ -159,6 +158,10 @@ const Gallery = () => {
       scrollToSelectedImage(selectedImage);
     }
   }, [selectedImage]);
+
+  console.log("selectedCategory", selectedCategory);
+
+  console.log("selectedImage", selectedImage);
 
   return (
     <div className="gallery-container">
